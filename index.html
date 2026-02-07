@@ -53,20 +53,6 @@ p{color:#555;}
 .fun button:active{transform:scale(1.1);}
 .final-msg{color:#e14a82;font-size:16px; text-align:center; margin-top:12px; text-shadow:0 0 6px #fff;}
 
-/* --- Sparkle animation --- */
-@keyframes sparkle {
-  0% {transform: translate(0,0) rotate(0deg); opacity:1;}
-  50% {transform: translate(10px,-10px) rotate(180deg); opacity:0.5;}
-  100% {transform: translate(0,0) rotate(360deg); opacity:1;}
-}
-.sparkle {
-  position:absolute;
-  font-size:24px;
-  color:#ff6fa3;
-  pointer-events:none;
-  animation: sparkle 1.5s linear infinite;
-}
-
 
 <!-- Love Letter -->
 <div class="letter">
@@ -163,15 +149,7 @@ function spawnHeart(){
       document.getElementById('finalMsg').innerHTML="💖 YOU WON! Scroll down to answer your question 💍";
       funSection.scrollIntoView({behavior:'smooth'});
 
-      // Sparkles!
-      for(let i=0;i<30;i++){
-        const sparkle=document.createElement('div');
-        sparkle.className='sparkle';
-        sparkle.style.left=Math.random()*window.innerWidth+'px';
-        sparkle.style.top=Math.random()*window.innerHeight+'px';
-        sparkle.style.fontSize=(10+Math.random()*20)+'px';
-        document.body.appendChild(sparkle);
-        setTimeout(()=>{sparkle.remove();},2000);
+ 
       }
     }
   });
@@ -185,18 +163,7 @@ const kissOverlay = document.getElementById('kissOverlay');
 document.getElementById('yesBtn').addEventListener('click',()=>{
   finalMsg.innerHTML="💖 YES! You just made me the happiest person alive! WILL U BE MY FOREVER? 💍";
 
-  // Sparkles
-  for(let i=0;i<50;i++){
-    const sparkle=document.createElement('div');
-    sparkle.className='sparkle';
-    sparkle.style.left=Math.random()*window.innerWidth+'px';
-    sparkle.style.top=Math.random()*window.innerHeight+'px';
-    sparkle.style.fontSize=(12+Math.random()*24)+'px';
-    document.body.appendChild(sparkle);
-    setTimeout(()=>{sparkle.remove();},3000);
-  }
 
-});
 
 document.getElementById('maybeBtn').addEventListener('click',()=>{ finalMsg.innerHTML="🤔 Hmm… Take your time, but I hope your answer is forever! 💖"; });
 document.getElementById('noBtn').addEventListener('click',()=>{ finalMsg.innerHTML="😢 Oh… but I’ll keep loving you anyway… 💖"; });
@@ -204,4 +171,5 @@ document.getElementById('noBtn').addEventListener('click',()=>{ finalMsg.innerHT
 </script>
 </body>
 </html>
+
 
