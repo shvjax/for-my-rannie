@@ -103,6 +103,8 @@ p{color:#555;}
   <div id="finalMsg" class="final-msg"></div>
 </div>
 
+</div>
+
 
 <script>
 // --- Envelope ---
@@ -149,10 +151,7 @@ function spawnHeart(){
       document.getElementById('finalMsg').innerHTML="💖 YOU WON! Scroll down to answer your question 💍";
       funSection.scrollIntoView({behavior:'smooth'});
 
- 
-      }
-    }
-  });
+    
 }
 setInterval(spawnHeart,800);
 
@@ -164,12 +163,9 @@ document.getElementById('yesBtn').addEventListener('click',()=>{
   finalMsg.innerHTML="💖 YES! You just made me the happiest person alive! WILL U BE MY FOREVER? 💍";
 
 
-
 document.getElementById('maybeBtn').addEventListener('click',()=>{ finalMsg.innerHTML="🤔 Hmm… Take your time, but I hope your answer is forever! 💖"; });
 document.getElementById('noBtn').addEventListener('click',()=>{ finalMsg.innerHTML="😢 Oh… but I’ll keep loving you anyway… 💖"; });
 
 </script>
 </body>
 </html>
-
-
