@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Letter for Rannie 💖</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#fff5fb;}
+.container{max-width:600px;margin:auto;padding:20px;display:grid;gap:30px;}
+h1{color:#e14a82;font-size:20px;}
+p{color:#555;}
+
+/* Sections */
+.letter,.hearts,.game,.fun{background:#fff;padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.05);}
+
+/* Envelope */
+.envelope{perspective:1000px;cursor:pointer;position:relative;}
+.env-inner{transition:transform 0.9s;transform-style:preserve-3d;}
+.env-front,.env-back{position:absolute;width:100%;height:180px;background:#fff;border-radius:10px;backface-visibility:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+.env-front{background:linear-gradient(45deg,#ffd6e6,#ffeef7);}
+.env-inner.open{transform:rotateX(180deg);}
+.letter-content{padding:16px;transform:translateY(20px);opacity:0;transition:all .6s;}
+.env-inner.open .letter-content{transform:translateY(0);opacity:1;}
+.hint{font-size:12px;color:#888;text-align:center;margin-top:6px;}
+
+/* Hearts */
+.heart-row{display:flex;gap:12px;margin-top:12px;justify-content:center;flex-wrap:wrap;}
+.heart{font-size:36px;cursor:pointer;user-select:none;transition:transform .2s;}
+.heart:active{transform:scale(1.2);}
+.message{margin-top:12px;padding:12px;background:#fff0f6;border-radius:12px;color:#e14a82;text-align:center;font-size:14px;}
+
+/* Mini-game */
+#gameArea{cursor:pointer;}
+.heartGame{position:absolute;font-size:32px;user-select:none;transition:transform 0.2s;}
+
+/* Fun Section */
+.fun button{
+  padding:10px 18px;margin:6px;border:none;border-radius:12px;background:#ff6fa3;color:#fff;font-size:16px;cursor:pointer;transition:transform .2s;
+}
+.fun button:active{transform:scale(1.1);}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Love Letter -->
+  <div class="letter">
+    <h1>💌 My Love Letter</h1>
+    <p>Tap the envelope to reveal my words to you...</p>
+    <div class="envelope" id="envelope">
+      <div class="env-inner">
+        <div class="env-front"></div>
+        <div class="env-back">
+          <div class="letter-content">
+            <p><em>My Dearest Rannie,</em></p>
+            <p><em>Every moment with you feels like a beautiful dream! Your smile lights up my darkest days!! Your laugh is the sweetest melody my heart has ever known! And your touch makes me feel like home!</em></p>
+            <p><em>I never knew a love could feel this deep, this endless, and this magical! With you I feel like the luckiest soul alive! I cherish every heartbeat, every glance, every word shared between us! I love u so much and I promise I’d love u in ways that poets won’t dare pen! I’d love u in ways even ironic cynics would envy!</em></p>
+            <p><em>Forever yours, Shuja 💟</em></p>
+          </div>
+        </div>
+      </div>
+      <div class="hint">Tap the envelope</div>
+    </div>
+  </div>
+
+  <!-- Hearts -->
+  <div class="hearts">
+    <h1>💖 Click Hearts to Reveal Messages</h1>
+    <div class="heart-row">
+      <div class="heart" data-msg="You are the love of my life and I’ll always be scared to lose u but I truly love u,You make every day worth living 💖,I can’t imagine life without you ✨">💖</div>
+      <div class="heart" data-msg="I adore you Rannie, you make my life a perfect place and I’ll always be grateful to u,You’re my sunshine 🌞,Your laugh is my favorite melody 🎶">🎀</div>
+      <div class="heart" data-msg="I love every little thing about you! You’re my everything and I want to have u forever!,You’re the most amazing person known to me 💫,Forever and always it’s you ❤️">💗</div>
+    </div>
+    <div id="msgArea" class="message">Tap a heart 💌</div>
+  </div>
+
+  <!-- Mini Game -->
+  <div class="game">
+    <h1>🎮 Catch the Hearts Game!</h1>
+    <p>Tap the falling hearts and collect 5 to unlock your question 💖</p>
+    <div id="gameArea"></div>
+    <p>Hearts Collected: <span id="score">0</span>/5</p>
+  </div>
+
+  <!-- Fun interactive ending -->
+  <div class="fun" id="funSection" style="display:none;">
+    <h1>🎉 Your Question Awaits!</h1>
+    <p>Answer me honestly, love…</p>
+    <button id="yesBtn">YES YES YES OMG ILY 💗🎀💋</button>
+    <button id="maybeBtn">HNM IDK</button>
+    <button id="noBtn">NO NEVER IHY</button>
+    <div id="finalMsg" class="message" style="margin-top:12px;"></div>
+  </div>
+
+</div>
+
+<script>
+// Envelope open
+const env = document.querySelector('.env-inner');
+env.addEventListener('click',()=>{env.classList.toggle('open');});
+
+// Hearts messages
+const hearts = document.querySelectorAll('.heart');
+const msgArea = document.getElementById('msgArea');
+hearts.forEach(h=>{
+  let idx = 0;
+  const msgs = h.getAttribute('data-msg').split(',');
+  h.addEventListener('click', ()=>{
+    msgArea.textContent = msgs[idx];
+    idx = (idx+1)%msgs.length;
+  });
+});
+
+// Mini-game
+const gameArea = document.getElementById('gameArea');
+const scoreDisplay = document.getElementById('score');
+let score = 0;
+const maxScore = 5;
+
+function spawnHeart(){
+  const heart = document.createElement('div');
+  heart.className = 'heartGame';
+  heart.textContent = '💖';
+  heart.style.left = Math.random() * (gameArea.offsetWidth - 40) + 'px';
+  heart.style.top = '-40px';
+  heart.style.position = 'absolute';
+  heart.style.fontSize = '32px';
+  gameArea.appendChild(heart);
+
+  let pos = -40;
+  const speed = 1 + Math.random()*2;
+  const fall = setInterval(()=>{
+    pos += speed;
+    heart.style.top = pos + 'px';
+    if(pos > gameArea.offsetHeight){
+      heart.remove();
+      clearInterval(fall);
+    }
+  },16);
+
+  heart.addEventListener('click', ()=>{
+    heart.remove();
+    clearInterval(fall);
+    score++;
+    scoreDisplay.textContent = score;
+
+    if(score >= maxScore){
+      const funSection = document.getElementById('funSection');
+      funSection.style.display = 'block';
+      document.getElementById('finalMsg').innerHTML = "💖 YOU WON! Scroll down to answer your question 💍";
+      funSection.scrollIntoView({behavior:'smooth'});
+    }
+  });
+}
+
+setInterval(spawnHeart,800);
+
+// Fun buttons
+const finalMsg = document.getElementById('finalMsg');
+document.getElementById('yesBtn').addEventListener('click', ()=>{ 
+  finalMsg.innerHTML = "💖 YES! You just made me the happiest person alive! "; 
+});
+document.getElementById('maybeBtn').addEventListener('click', ()=>{ 
+  finalMsg.innerHTML = " Take your time, but I hope your answer is forever! 💖"; 
+});
+document.getElementById('noBtn').addEventListener('click', ()=>{ 
+  finalMsg.innerHTML = " Oh… but I’ll keep loving you anyway"; 
+});
+</script>
+</body>
+</html>
