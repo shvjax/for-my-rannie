@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love Letter for Rannie 💖</title>
 <style>
-/* --- Basic Page Styles --- */
+/* --- Basic Styles --- */
 body{margin:0;font-family:sans-serif;background:#fff5fb;overflow-x:hidden;}
 .container{max-width:600px;margin:auto;padding:20px;display:grid;gap:30px;}
 h1{color:#e14a82;font-size:20px;}
@@ -27,11 +27,8 @@ p{color:#555;}
   padding: 16px;
   box-sizing: border-box;
 }
-/* Front */
 .env-front { background: linear-gradient(45deg,#ffd6e6,#ffeef7); display:flex; align-items:center; justify-content:center; font-size:36px; }
-/* Back */
 .env-back { background-color:#fff; color:#e14a82; transform:rotateX(180deg); display:flex; flex-direction:column; justify-content:center; position:relative; }
-/* Letter */
 .letter-content { opacity:1; transform:none; font-size:14px; line-height:1.5; }
 .env-inner.open { transform: rotateX(180deg); }
 .hint{font-size:12px;color:#888;text-align:center;margin-top:6px;}
@@ -69,6 +66,27 @@ p{color:#555;}
   pointer-events:none;
   animation: sparkle 1.5s linear infinite;
 }
+
+/* --- Big Kiss Overlay --- */
+#kissOverlay {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(255,230,245,0.95);
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+@keyframes popKiss {
+  0% { transform: scale(0); opacity:0; }
+  50% { transform: scale(1.5); opacity:1; }
+  100% { transform: scale(1); opacity:1; }
+}
+.kissEmoji { font-size:120px; animation: popKiss 1s forwards; }
+.kissText { margin-top:20px; font-size:36px; color:#e14a82; font-weight:bold; text-shadow:0 0 12px #fff,0 0 20px #ff6fa3; text-align:center; }
 </style>
 </head>
 <body>
@@ -125,6 +143,15 @@ p{color:#555;}
 
 </div>
 
+<!-- Big Kiss Overlay -->
+<div id="kissOverlay">
+  <div class="kissEmoji">💋</div>
+  <div class="kissText">
+    OMG U MADE ME THE HAPPIEST PERSON EVERRRR<br>
+    PLEASE FORGIVE ME
+  </div>
+</div>
+
 <script>
 // --- Envelope ---
 document.querySelector('.env-inner').addEventListener('click',()=>{document.querySelector('.env-inner').classList.toggle('open');});
@@ -169,6 +196,7 @@ function spawnHeart(){
       funSection.style.display='block';
       document.getElementById('finalMsg').innerHTML="💖 YOU WON! Scroll down to answer your question 💍";
       funSection.scrollIntoView({behavior:'smooth'});
+
       // Sparkles!
       for(let i=0;i<30;i++){
         const sparkle=document.createElement('div');
@@ -186,9 +214,12 @@ setInterval(spawnHeart,800);
 
 // --- Fun buttons ---
 const finalMsg = document.getElementById('finalMsg');
+const kissOverlay = document.getElementById('kissOverlay');
+
 document.getElementById('yesBtn').addEventListener('click',()=>{
   finalMsg.innerHTML="💖 YES! You just made me the happiest person alive! WILL U BE MY FOREVER? 💍";
-  // Extra sparkle
+
+  // Sparkles
   for(let i=0;i<50;i++){
     const sparkle=document.createElement('div');
     sparkle.className='sparkle';
@@ -198,9 +229,14 @@ document.getElementById('yesBtn').addEventListener('click',()=>{
     document.body.appendChild(sparkle);
     setTimeout(()=>{sparkle.remove();},3000);
   }
+
+  // Show Big Kiss Overlay
+  kissOverlay.style.display='flex';
 });
+
 document.getElementById('maybeBtn').addEventListener('click',()=>{ finalMsg.innerHTML="🤔 Hmm… Take your time, but I hope your answer is forever! 💖"; });
 document.getElementById('noBtn').addEventListener('click',()=>{ finalMsg.innerHTML="😢 Oh… but I’ll keep loving you anyway… 💖"; });
+
 </script>
 </body>
 </html>
