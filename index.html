@@ -52,7 +52,11 @@ p{color:#555;}
 .fun button:hover{box-shadow:0 0 10px #ff6fa3,0 0 20px #e14a82,0 0 30px #fff;}
 .fun button:active{transform:scale(1.1);}
 .final-msg{color:#e14a82;font-size:16px; text-align:center; margin-top:12px; text-shadow:0 0 6px #fff;}
+</style>
+</head>
+<body>
 
+<div class="container">
 
 <!-- Love Letter -->
 <div class="letter">
@@ -103,12 +107,13 @@ p{color:#555;}
   <div id="finalMsg" class="final-msg"></div>
 </div>
 
-</div>
-
+</div> <!-- container -->
 
 <script>
 // --- Envelope ---
-document.querySelector('.env-inner').addEventListener('click',()=>{document.querySelector('.env-inner').classList.toggle('open');});
+document.querySelector('.env-inner').addEventListener('click',()=>{
+  document.querySelector('.env-inner').classList.toggle('open');
+});
 
 // --- Hearts ---
 const hearts = document.querySelectorAll('.heart');
@@ -116,7 +121,10 @@ const msgArea = document.getElementById('msgArea');
 hearts.forEach(h=>{
   let idx=0;
   const msgs=h.getAttribute('data-msg').split(',');
-  h.addEventListener('click',()=>{ msgArea.textContent=msgs[idx]; idx=(idx+1)%msgs.length; });
+  h.addEventListener('click',()=>{
+    msgArea.textContent=msgs[idx];
+    idx=(idx+1)%msgs.length;
+  });
 });
 
 // --- Mini-game ---
@@ -132,6 +140,7 @@ function spawnHeart(){
   heart.style.left=Math.random()*(gameArea.offsetWidth-40)+'px';
   heart.style.top='-40px';
   gameArea.appendChild(heart);
+
   let pos=-40;
   const speed=1+Math.random()*2;
   const gameHeight=gameArea.clientHeight;
@@ -144,28 +153,32 @@ function spawnHeart(){
 
   heart.addEventListener('click',()=>{
     heart.remove(); clearInterval(fall);
-    score++; scoreDisplay.textContent=score;
+    score++; 
+    scoreDisplay.textContent=score;
     if(score>=maxScore){
       const funSection=document.getElementById('funSection');
       funSection.style.display='block';
       document.getElementById('finalMsg').innerHTML="💖 YOU WON! Scroll down to answer your question 💍";
       funSection.scrollIntoView({behavior:'smooth'});
-
-    
+    }
+  });
 }
+
+// Spawn hearts every 800ms
 setInterval(spawnHeart,800);
 
 // --- Fun buttons ---
 const finalMsg = document.getElementById('finalMsg');
-const kissOverlay = document.getElementById('kissOverlay');
-
-document.getElementById('yesBtn').addEventListener('click',()=>{
-  finalMsg.innerHTML="💖 YES! You just made me the happiest person alive! WILL U BE MY FOREVER? 💍";
-
-
-document.getElementById('maybeBtn').addEventListener('click',()=>{ finalMsg.innerHTML="🤔 Hmm… Take your time, but I hope your answer is forever! 💖"; });
-document.getElementById('noBtn').addEventListener('click',()=>{ finalMsg.innerHTML="😢 Oh… but I’ll keep loving you anyway… 💖"; });
-
+document.getElementById('yesBtn').addEventListener('click',()=>{ 
+  finalMsg.innerHTML="💖 YES! You just made me the happiest person alive! WILL U BE MY FOREVER? 💍"; 
+});
+document.getElementById('maybeBtn').addEventListener('click',()=>{ 
+  finalMsg.innerHTML="🤔 Hmm… Take your time, but I hope your answer is forever! 💖"; 
+});
+document.getElementById('noBtn').addEventListener('click',()=>{ 
+  finalMsg.innerHTML="😢 Oh… but I’ll keep loving you anyway… 💖"; 
+});
 </script>
+
 </body>
 </html>
