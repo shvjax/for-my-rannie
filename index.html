@@ -67,30 +67,6 @@ p{color:#555;}
   animation: sparkle 1.5s linear infinite;
 }
 
-/* --- Big Kiss Overlay --- */
-#kissOverlay {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(255,230,245,0.95);
-  z-index:9999;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-@keyframes popKiss {
-  0% { transform: scale(0); opacity:0; }
-  50% { transform: scale(1.5); opacity:1; }
-  100% { transform: scale(1); opacity:1; }
-}
-.kissEmoji { font-size:120px; animation: popKiss 1s forwards; }
-.kissText { margin-top:20px; font-size:36px; color:#e14a82; font-weight:bold; text-shadow:0 0 12px #fff,0 0 20px #ff6fa3; text-align:center; }
-</style>
-</head>
-<body>
-<div class="container">
 
 <!-- Love Letter -->
 <div class="letter">
@@ -141,16 +117,6 @@ p{color:#555;}
   <div id="finalMsg" class="final-msg"></div>
 </div>
 
-</div>
-
-<!-- Big Kiss Overlay -->
-<div id="kissOverlay">
-  <div class="kissEmoji">💋</div>
-  <div class="kissText">
-    OMG U MADE ME THE HAPPIEST PERSON EVERRRR<br>
-    PLEASE FORGIVE ME
-  </div>
-</div>
 
 <script>
 // --- Envelope ---
@@ -230,8 +196,6 @@ document.getElementById('yesBtn').addEventListener('click',()=>{
     setTimeout(()=>{sparkle.remove();},3000);
   }
 
-  // Show Big Kiss Overlay
-  kissOverlay.style.display='flex';
 });
 
 document.getElementById('maybeBtn').addEventListener('click',()=>{ finalMsg.innerHTML="🤔 Hmm… Take your time, but I hope your answer is forever! 💖"; });
@@ -240,3 +204,4 @@ document.getElementById('noBtn').addEventListener('click',()=>{ finalMsg.innerHT
 </script>
 </body>
 </html>
+
